@@ -1,0 +1,13 @@
+use vnedu
+db.createUser(
+  {
+    user: "user1",
+    pwd: "user1_password",
+    roles: [ { role: "readWrite", db: "vnedu" } ]
+  }
+)
+
+use vnedu
+db.auth("user1", "user1_password")
+
+mongoimport -h 127.0.0.1:27017 -u user1 -p user1_password --authenticationDatabase vnedu -d vnedu -c student --type csv --file student.csv --headerline
